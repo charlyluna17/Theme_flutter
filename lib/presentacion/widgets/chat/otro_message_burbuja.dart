@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:si_no_app/domain/entities/message.dart';
 
 class OtroMyMessageBubble extends StatelessWidget {
-  const OtroMyMessageBubble({super.key});
+
+   final Message message;
+
+  const OtroMyMessageBubble({
+    super.key,
+    required this.message
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +22,16 @@ class OtroMyMessageBubble extends StatelessWidget {
             color: colors.primary,
             borderRadius: BorderRadius.circular(20)
           ),
-          child: const Padding(
+          child:  Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text('hola Mundo', style: TextStyle(color: Colors.white),),
+            child: Text(
+              message.text, 
+              style: TextStyle(color: Colors.white),),
 
           )
         ),
         const SizedBox(height: 5),
-        _ImageBubble(),
+        _ImageBubble(message.imageUrl!),
         const SizedBox(height: 10),
       ],
     );
@@ -31,6 +40,9 @@ class OtroMyMessageBubble extends StatelessWidget {
 
 class _ImageBubble extends StatelessWidget{
   
+  final String imageUrl;
+
+  const _ImageBubble(this.imageUrl);
  
 
   @override
@@ -39,7 +51,7 @@ class _ImageBubble extends StatelessWidget{
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
-      child: Image.network('https://yesno.wtf/assets/no/2-101be1e3d8a0ed407c4e3c001ef8fa66.gif',
+      child: Image.network(imageUrl,
       width: size.width* 0.7,
       height: 150,
       fit: BoxFit.cover,
